@@ -162,10 +162,13 @@ class Reservation:
         else:
             # validate seat is empty
             bus = self.buses[bus_number]
-            if bus.seat_is_taken(seat_number=seat_number):
-                print("seat already reserved - operation failed")
-            else:
-                bus.edit_seat_info(seat_number=seat_number, passenger_name=passenger_name)
+            try:
+                if bus.seat_is_taken(seat_number=seat_number):
+                    print("seat already reserved - operation failed")
+                else:
+                    bus.edit_seat_info(seat_number=seat_number, passenger_name=passenger_name)
+            except ValueError:
+                pass
 
     def remove_reservation(self, bus_number, seat_number):
         # validate bus exists
@@ -174,10 +177,13 @@ class Reservation:
         else:
             # validate seat is full
             bus = self.buses[bus_number]
-            if bus.seat_is_taken(seat_number=seat_number):
-                print("seat not reserved, would you like to reserve it - operation failed")
-            else:
-                bus.edit_seat_info(seat_number=seat_number, passenger_name="")
+            try:
+                if bus.seat_is_taken(seat_number=seat_number):
+                    print("seat not reserved, would you like to reserve it - operation failed")
+                else:
+                    bus.edit_seat_info(seat_number=seat_number, passenger_name="")
+            except ValueError:
+                pass
 
 
 if __name__ == '__main__':
